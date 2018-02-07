@@ -8,9 +8,9 @@ az aks get-credentials --resource-group ${resourcegroup} --name ${clustername}
 
 # Get the details of the IP address and DNS name to be associated with the Jenkins install 
 
-IP=`az network public-ip show --resource-group ${aksresourcegroup} --name ${ipname}  --query ipAddress`
+IP=`az network public-ip show --resource-group ${aksresourcegroup} --name ${ipname}  --query ipAddress`|sed -e 's/^"//' -e 's/"$//'
 echo "IP = $IP"
-DNS=`az network public-ip show --resource-group ${aksresourcegroup} --name ${ipname}  --query dnsSettings.fqdn`
+DNS=`az network public-ip show --resource-group ${aksresourcegroup} --name ${ipname}  --query dnsSettings.fqdn`|sed -e 's/^"//' -e 's/"$//'
 echo "DNS is $DNS"
 
 # Make sure that Helm is installed on the Kubernetes cluster
