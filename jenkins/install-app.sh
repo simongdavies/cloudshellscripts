@@ -15,7 +15,7 @@ echo "DNS is $DNS"
 
 # Make sure that Helm is installed on the Kubernetes cluster
 
-helm init --upgrade
+helm init 
 
 # Wait for Helm (tiller) to be installed and running
 
