@@ -2,8 +2,9 @@
 set -euo pipefail
 
 # Login and get the Kubernetes Cluster credentials
-az login --service-principal -u ${az-principal} -p {az-secret} --tenant ${az-tenant}
-az aks get-credentials --resource-group {resource-group} --name ${cluster-name}
+echo "az login --service-principal -u ${az-principal} -p ${az-secret} --tenant ${az-tenant}"
+az login --service-principal -u ${az-principal} -p ${az-secret} --tenant ${az-tenant}
+az aks get-credentials --resource-group ${resource-group} --name ${cluster-name}
 
 # Get the details of the IP address and DNS name to be associated with the Jenkins install 
 
@@ -20,7 +21,19 @@ helm init --upgrade
 
 kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
+cat << EOF > hosts.yaml
+  Master:
+    UseSecurity: false
+    AdminUser: ${jenkins-user}
+    AdminPassword: ${jenkins-password}
+  
+  TLS:
+    - secretName: 
+      hosts:
+        - ${DNS}
+EOF
+
 # Install Jenkins
 
-helm install --name jenkins --namespace jenkins stable/jenkins -f values.yaml
+helm install --name jenkins --namespace jenkins stable/jenkins -f jenkins.yaml -f hosts.yaml
 
