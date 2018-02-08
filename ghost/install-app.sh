@@ -23,6 +23,6 @@ kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
 # Install Ghost
 
-helm install --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP} stable/ghost
+helm install --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP},ghostUsername=${ghostusername},ghostPassword=${ghostpassword},ghostEmail=${ghostusername},ghostBlogTitle=${ghostblogtitle} stable/ghost
 
 
