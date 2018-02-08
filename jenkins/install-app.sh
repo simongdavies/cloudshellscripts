@@ -23,7 +23,7 @@ kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
 cat << EOF > hosts.yaml
   Master:
-    UseSecurity: false
+    UseSecurity: true
     AdminUser: ${jenkinsuser}
     AdminPassword: ${jenkinspassword}
   
@@ -32,8 +32,6 @@ cat << EOF > hosts.yaml
       hosts:
         - ${DNS}
 EOF
-
-cat hosts.yaml
 
 # Install Jenkins
 
