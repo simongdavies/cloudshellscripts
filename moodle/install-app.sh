@@ -16,6 +16,5 @@ kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
 # Install Moodle
 
-helm install --set moodleUsername=${moodleusername},moodlePassword=${moodlepassword},moodleEmail=${moodleusername} stable/moodle
-
+helm install --set moodleUsername=${moodleusername},moodlePassword=${moodlepassword},moodleEmail=${moodleemail} stable/moodl
 
