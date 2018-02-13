@@ -16,5 +16,5 @@ kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
 # Install Moodle
 
-helm install --set moodleUsername=${moodleusername},moodlePassword=${moodlepassword},moodleEmail=${moodleemail} stable/moodl
+helm install --set moodleUsername=${moodleusername},moodlePassword=${moodlepassword},moodleEmail=${moodleemail},mariadb.persistence.storageClass=managed-premium,persistence.storageClass=managed-premium,allowEmptyPassword=no,mariadb.allowEmptyPassword=no stable/moodle
 
