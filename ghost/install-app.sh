@@ -21,8 +21,36 @@ helm init
 
 kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 
+# Add the svc catalog repo
+
+helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+
+# Install the service catalog
+
+helm install svc-cat/catalog --name catalog --namespace catalog --set rbacEnable=false
+
+# Wait for the rollout
+
+kubectl rollout status -w deployment/catalog-catalog-apiserver --namespace=catalog
+ 
+kubectl rollout status -w deployment/catalog-catalog-controller-manager --namespace=catalog
+
+# Add the Azure OSB Repo
+
+helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
+
+# Install the Azure OSB
+
+helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${azsubcription},azure.tenantId=${aztenant},azure.clientId=${azprincipal},set azure.clientSecret=${azsecret}
+
+# Wait for the rollout
+
+kubectl rollout status -w deployment/osba-open-service-broker-azure --namespace=osba
+ 
+kubectl rollout status -w deployment/osba-redis --namespace=osba
+
 # Install Ghost
 
-helm install --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP},ghostUsername=${ghostusername},ghostPassword=${ghostpassword},ghostEmail=${ghostusername},ghostBlogTitle="'${ghostblogtitle}'",mariadb.persistence.storageClass=managed-premium,persistence.storageClass=managed-premium,allowEmptyPassword=no,mariadb.allowEmptyPassword=no stable/ghost
+helm install --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP},ghostUsername=${ghostusername},ghostPassword=${ghostpassword},ghostEmail=${ghostusername},ghostBlogTitle="'${ghostblogtitle}'",mariadb.persistence.storageClass=managed-premium,persistence.storageClass=managed-premium,allowEmptyPassword=no,mariadb.allowEmptyPassword=no azure/ghost
 
 
