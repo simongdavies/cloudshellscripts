@@ -51,6 +51,6 @@ kubectl rollout status -w deployment/osba-redis --namespace=osba
 
 # Install Ghost
 
-helm install   --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP},ghostUsername=${ghostusername},ghostPassword=${ghostpassword},ghostEmail=${ghostusername},ghostBlogTitle="'${ghostblogtitle}'",mariadb.persistence.storageClass=managed-premium,persistence.storageClass=managed-premium,allowEmptyPassword=no,mariadb.allowEmptyPassword=no azure/ghost
+helm install   --set serviceType=LoadBalancer,ghostHost=${DNS},ghostLoadBalancerIP=${IP},ghostUsername=${ghostusername},ghostPassword=${ghostpassword},ghostEmail=${ghostusername},ghostBlogTitle="'${ghostblogtitle}'",persistence.storageClass=managed-premium,allowEmptyPassword=no,mysql.azure.location=${location} azure/ghost
 
 
