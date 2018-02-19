@@ -41,7 +41,7 @@ helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
 
 # Install the Azure OSB
 
-helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${azsubscription},azure.tenantId=${aztenant},azure.clientId=${azprincipal},set azure.clientSecret=${azsecret}
+helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${azsubscription},azure.tenantId=${aztenant},azure.clientId=${azprincipal},azure.clientSecret=${azsecret}
 
 # Wait for the rollout
 
