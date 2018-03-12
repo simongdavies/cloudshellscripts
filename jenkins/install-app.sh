@@ -31,6 +31,8 @@ cat << EOF > hosts.yaml
     - secretName: 
       hosts:
         - ${DNS}
+  Persistence:
+    StorageClass: managed-premium
 EOF
 
 # Install Jenkins
